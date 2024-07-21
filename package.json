@@ -1,0 +1,29 @@
+{
+  "name": "structalize",
+  "author": "antonpieper",
+  "module": "./dist/structalize.js",
+  "main": "./dist/structalize.umd.cjs",
+  "description": "Define binary C-Like structures and (de-)serialize them",
+  "keywords": [
+    "struct",
+    "binary",
+    "arraybuffer",
+    "protocol",
+    "serialize"
+  ],
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@fsouza/prettierd": "^0.25.3",
+    "@vitest/coverage-v8": "^2.0.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "vitest": "^2.0.3"
+  }
+}
