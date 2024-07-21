@@ -1,13 +1,13 @@
-# structalize
+# structix
 
-`structalize` is a TypeScript library for defining and manipulating structured binary data. It provides a type-safe way to create, read, and write binary structures using typed arrays.
+`structix` is a TypeScript library for defining and manipulating structured binary data. It provides a type-safe way to create, read, and write binary structures using typed arrays.
 
 ## Installation
 
-You can install `structalize` via npm:
+You can install `structix` via npm:
 
 ```bash
-npm install structalize
+npm install structix
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install structalize
 To define a structure, use the `prop` function to define the properties of the structure and the `struct` function to create the structure template.
 
 ```ts
-import struct, { prop } from 'structalize';
+import struct, { prop } from 'structix';
 
 const MyStruct = struct([
   prop.i32('id'),
@@ -64,7 +64,7 @@ struct.write(instance, buffer);
 
 ### TypedArray
 
-`structalize` provides a set of typed arrays to define the types of properties in a structure:
+`structix` provides a set of typed arrays to define the types of properties in a structure:
 
 - `i8`: `Int8Array`
 - `u8`: `Uint8Array`
