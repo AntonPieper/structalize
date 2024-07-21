@@ -4,6 +4,11 @@
   "module": "./dist/structalize.js",
   "main": "./dist/structalize.umd.cjs",
   "description": "Define binary C-Like structures and (de-)serialize them",
+  "homepage": "https://github.com/AntonPieper/structalize",
+  "repository": "github:AntonPieper/structalize#readme",
+  "bugs": {
+    "url": "https://github.com/AntonPieper/structalize/issues"
+  },
   "keywords": [
     "struct",
     "binary",
