@@ -16,13 +16,13 @@ export const TypedArray = {
 export type TypedArrayConstructor = Values<typeof TypedArray>;
 export type TypedArray = InstanceType<TypedArrayConstructor>;
 
-export const PropertyType = (() => {
+export const PropertyType: { [P in keyof typeof TypedArray]: P } = (() => {
   const result: Record<string, string> = {};
   let key: keyof typeof TypedArray;
   for (key in TypedArray) {
     result[key] = key;
   }
-  return result as { [P in keyof typeof TypedArray]: P };
+  return result as typeof PropertyType;
 })();
 export type PropertyType = Values<typeof PropertyType>;
 
@@ -82,43 +82,56 @@ export type MutableStruct<T extends StructTemplate = StructTemplate> = {
   [P in keyof T["schema"]]: MutableJsType<T["schema"][P]>;
 } & { readonly [templateSym]: T };
 
-export const prop = (() => {
-  function prop<Type extends PropertyType, Name extends string>(
+export type ShorthandPropFn<Type extends PropertyType> = {
+  <Name extends string>(name: Name, count?: undefined): Member<Type, Name, 1>;
+  <Name extends string, Count extends number>(
+    name: Name,
+    count: Count,
+  ): Member<Type, Name, Count>;
+};
+
+export type PropFn = {
+  <Type extends PropertyType, Name extends string>(
     type: Type,
     name: Name,
     count?: undefined,
   ): Member<Type, Name, 1>;
-  function prop<
-    Type extends PropertyType,
-    Name extends string,
-    Count extends number,
-  >(type: Type, name: Name, count: Count): Member<Type, Name, Count>;
+  <Type extends PropertyType, Name extends string, Count extends number>(
+    type: Type,
+    name: Name,
+    count: Count,
+  ): Member<Type, Name, 1>;
+} & {
+  [P in PropertyType]: ShorthandPropFn<P>;
+};
+
+export type StructFn = {
+  <const S extends Member[]>(schema: S): StructTemplate<S>;
+  read<const T extends StructTemplate>(
+    template: T,
+    buffer: ArrayBufferLike,
+  ): MutableStruct<T>;
+  "new"<T extends StructTemplate>(template: T): MutableStruct<T>;
+  write(struct: Struct, buffer: ArrayBufferLike): void;
+};
+
+export const prop: PropFn = (() => {
   function prop(type: PropertyType, name: string, count = 1): Member {
     return { type: PropertyType[type], name, count };
   }
-  type Shorthand<Type extends PropertyType> = {
-    <Name extends string>(name: Name, count?: undefined): Member<Type, Name, 1>;
-    <Name extends string, Count extends number>(
-      name: Name,
-      count: Count,
-    ): Member<Type, Name, Count>;
-  };
-  function shorthand<Type extends PropertyType>(type: Type) {
-    return prop.bind(undefined, type) as Shorthand<Type>;
+  function shorthand(type: PropertyType) {
+    return prop.bind(undefined, type);
   }
   let name: PropertyType;
   for (name in PropertyType) {
     (prop as any)[name] = shorthand(name);
   }
-  type PropFn = typeof prop & {
-    [P in PropertyType]: Shorthand<P>;
-  };
   return prop as PropFn;
 })();
 
 const templateSym = Symbol("template");
 
-export const struct = (() => {
+export const struct: StructFn = (() => {
   function struct<const S extends Member[]>(schema: S): StructTemplate<S> {
     const result: StructTemplate = {
       size: 0,
@@ -260,7 +273,7 @@ function viewBuffer(buffer: ArrayBufferLike): Uint8Array {
   return new Uint8Array(buffer, 0, buffer.byteLength);
 }
 
-export const FLOAT32_MAX_VALUE = new Float32Array(
+export const FLOAT32_MAX_VALUE: number = new Float32Array(
   new Uint32Array([0x7f7fffff]).buffer,
   0,
   1,
