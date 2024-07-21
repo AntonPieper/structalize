@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 // @ts-expect-error
 import { resolve } from "path";
@@ -10,8 +11,14 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      name: "structalize",
+      name: "structix",
       formats: ["es", "cjs", "umd", "system", "iife"],
     },
+    rollupOptions: {
+      output: {
+        exports: "named",
+      },
+    },
   },
+  plugins: [dts()],
 });
