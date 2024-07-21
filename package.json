@@ -20,6 +20,12 @@
   "license": "MIT",
   "version": "1.0.0",
   "type": "module",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/structix.js",
+    "require": "./dist/structix.cjs",
+    "default": "./dist/structix.js"
+  },
   "scripts": {
     "build": "tsc && vite build",
     "test": "vitest",
