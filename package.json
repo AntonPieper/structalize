@@ -29,6 +29,7 @@
     "require": "./dist/structix.cjs",
     "default": "./dist/structix.js"
   },
+  "sideEffects": false,
   "scripts": {
     "build": "tsc && vite build",
     "test": "vitest",
