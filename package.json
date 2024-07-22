@@ -3,6 +3,9 @@
   "author": "antonpieper",
   "module": "./dist/structix.js",
   "main": "./dist/structix.umd.cjs",
+  "files": [
+    "dist"
+  ],
   "types": "./dist/index.d.ts",
   "description": "Define binary C-Like structures and (de-)serialize them",
   "homepage": "https://github.com/AntonPieper/structix#readme",
@@ -18,7 +21,7 @@
     "serialize"
   ],
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "exports": {
     "types": "./dist/index.d.ts",
