@@ -9,7 +9,10 @@
   "types": "./dist/index.d.ts",
   "description": "Define binary C-Like structures and (de-)serialize them",
   "homepage": "https://github.com/AntonPieper/structix#readme",
-  "repository": "github:AntonPieper/structix",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonPieper/structix.git"
+  },
   "bugs": {
     "url": "https://github.com/AntonPieper/structix/issues"
   },
@@ -21,7 +24,7 @@
     "serialize"
   ],
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "exports": {
     "types": "./dist/index.d.ts",
@@ -32,15 +35,16 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc && vite build",
+    "prepack": "tsc && vite build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@fsouza/prettierd": "^0.25.3",
-    "@vitest/coverage-v8": "^2.0.3",
+    "@vitest/coverage-v8": "^2.0.4",
     "typescript": "^5.5.3",
     "vite": "^5.3.4",
     "vite-plugin-dts": "4.0.0-beta.1",
-    "vitest": "^2.0.3"
+    "vitest": "^2.0.4"
   }
 }
